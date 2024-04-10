@@ -7,8 +7,9 @@ import { classNames } from "primereact/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { homeScheme } from "@/helpers/validation";
-import i18n, { I18N_CURRENT_LOCALE, I18N_LOCALE } from "@/helpers/i18n";
+import i18nInstance, { I18N_CURRENT_LOCALE, I18N_LOCALE } from "@/helpers/i18n";
 import { useTranslation } from "react-i18next";
+import { saveData } from "@/helpers/local-storage";
 
 export default function Home() {
   const toast: any = useRef(null);
@@ -40,12 +41,15 @@ export default function Home() {
     reset();
   };
 
-  const handleChangeLanguage = () => {
+  const handleChangeLanguage = async () => {
+    console.log(I18N_CURRENT_LOCALE);
     if (I18N_CURRENT_LOCALE === I18N_LOCALE.EN) {
-      i18n.changeLanguage(I18N_LOCALE.VI);
+      await saveData("locale", I18N_LOCALE.VI);
+      i18nInstance.changeLanguage(I18N_LOCALE.VI);
       return;
     }
-    i18n.changeLanguage(I18N_LOCALE.EN);
+    await saveData("locale", I18N_LOCALE.EN);
+    i18nInstance.changeLanguage(I18N_LOCALE.EN);
   };
 
   return (
@@ -70,7 +74,7 @@ export default function Home() {
                   onChange={(e) => field.onChange(e.target.value)}
                   placeholder="Name - Surname"
                 />
-                <p>{t(errors.account?.message ?? "")}</p>
+                <p>{t(errors.account?.message!)}</p>
               </div>
               <div></div>{" "}
             </div>

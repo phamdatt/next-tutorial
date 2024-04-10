@@ -1,8 +1,12 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import commonEn from "../../public/locales/en/common";
-import commonVi from "../../public/locales/vi/common";
+import errorsEn from "../../public/locales/vi/errors";
+import componentsEn from "../../public/locales/vi/components";
 import pagesEn from "../../public/locales/en/pages";
+import commonVi from "../../public/locales/vi/common";
+import errorsVi from "../../public/locales/vi/errors";
+import componentsVi from "../../public/locales/vi/components";
 import pagesVi from "../../public/locales/vi/pages";
 
 // It's important to create just only i18n instance
@@ -20,10 +24,14 @@ const localeResources = {
   [I18N_LOCALE.EN]: {
     [I18N_DEFAULT_NAMEPSACE]: commonEn,
     pages: pagesEn,
+    errors: errorsEn,
+    components: componentsEn,
   },
   [I18N_LOCALE.VI]: {
     [I18N_DEFAULT_NAMEPSACE]: commonVi,
     pages: pagesVi,
+    errors: errorsVi,
+    components: componentsVi,
   },
 };
 
@@ -48,7 +56,7 @@ i18nInstance.use(initReactI18next).init({
   returnNull: false,
 });
 
-i18n.on("languageChanged", async (locale: string) => {
+i18nInstance.on("languageChanged", async (locale: string) => {
   if (!isValidI18nLocale(locale)) {
     I18N_CURRENT_LOCALE = I18N_DEFAULT_LOCALE;
   }

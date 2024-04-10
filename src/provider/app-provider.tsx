@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 import "primereact/resources/primereact.css";
@@ -12,15 +12,29 @@ import { persistStore } from "redux-persist";
 import { WebVitals } from "../helpers/web-vitals";
 import { I18nextProvider } from "react-i18next";
 import i18n from "@/helpers/i18n";
+import { getData } from "@/helpers/local-storage";
+import i18nInstance from "@/helpers/i18n";
 persistStore(store);
 
 function AppProvider({ children }: { children: React.ReactNode }) {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  useEffect(() => {
+    (async () => {
+      try {
+        let result = await getData("locale");
+        if (!result) return;
+        i18nInstance.changeLanguage(result);
+      } finally {
+        setIsLoading(false);
+      }
+    })();
+  }, []);
   WebVitals();
   return (
     <I18nextProvider i18n={i18n}>
       <Provider store={store}>
         <PrimeReactProvider>
-          <React.StrictMode>{children}</React.StrictMode>
+          <React.StrictMode>{!isLoading && children}</React.StrictMode>
         </PrimeReactProvider>
       </Provider>
     </I18nextProvider>
