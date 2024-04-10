@@ -31,8 +31,8 @@ yup.addMethod(yup.string, "onlyNumber", function onlyNumber(message: string) {
 });
 
 const homeScheme = yup.object({
-  account: yup.string().email().required(),
-  password: yup.string().required(),
+  account: yup.string().min(6).max(255).required(),
+  password: yup.string().isValidPassword().min(6).max(255).required(),
 });
 
 export { homeScheme };
