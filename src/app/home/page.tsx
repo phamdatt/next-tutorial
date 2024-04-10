@@ -6,10 +6,10 @@ import { Toast } from "primereact/toast";
 import { classNames } from "primereact/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
-import { homeScheme } from "@/helpers/validation";
+import { homeScheme } from "@/helpers/yup/validation";
 import i18nInstance, { I18N_CURRENT_LOCALE, I18N_LOCALE } from "@/helpers/i18n";
 import { useTranslation } from "react-i18next";
-import { saveData } from "@/helpers/local-storage";
+import { saveData } from "@/helpers/local-storage/local-storage";
 
 export default function Home() {
   const toast: any = useRef(null);

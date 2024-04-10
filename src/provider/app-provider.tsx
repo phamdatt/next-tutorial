@@ -12,7 +12,7 @@ import { persistStore } from "redux-persist";
 import { WebVitals } from "../helpers/web-vitals";
 import { I18nextProvider } from "react-i18next";
 import i18n from "@/helpers/i18n";
-import { getData } from "@/helpers/local-storage";
+import { getData } from "@/helpers/local-storage/local-storage";
 import i18nInstance from "@/helpers/i18n";
 persistStore(store);
 
