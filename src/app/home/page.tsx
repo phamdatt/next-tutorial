@@ -10,6 +10,8 @@ import i18nInstance, { I18N_CURRENT_LOCALE, I18N_LOCALE } from "@/helpers/i18n";
 import { useTranslation } from "react-i18next";
 import { saveData } from "@/helpers/local-storage/local-storage";
 import { Card } from "primereact/card";
+import FormMessageError from "@/components/form/form-message-error";
+
 export default function Home() {
   const toast: any = useRef(null);
   const { t } = useTranslation();
@@ -53,44 +55,37 @@ export default function Home() {
 
   return (
     <div>
-      <Card className="card flex justify-content-between">
-        <Button onClick={handleChangeLanguage}>Change locale</Button>
-        <Button onClick={handleChangeLanguage}>Change locale</Button>
-      </Card>
+      <div className="flex flex-wrap justify-content-between gap-2">
+        <p>{t("home_page.title", { ns: "pages" })}</p>
+        <Button
+          onClick={handleChangeLanguage}
+          className="block"
+          aria-label="Filter"
+          label="Change Language"
+        />
+      </div>
       <Card className="card flex justify-content-center">
-        {/* <div>{t("post_page.title", { ns: "pages" })}</div> */}
         <form onSubmit={handleSubmit(onSubmit)}>
           <Controller
             name="account"
             control={control}
             render={({ field, fieldState }) => (
-              <div>
+              <div
+                style={{
+                  width: 300,
+                }}
+              >
                 <div>
                   <InputText
+                    style={{
+                      width: "100%",
+                    }}
                     id={field.name}
                     className={classNames({ "p-invalid": fieldState.error })}
                     onChange={(e) => field.onChange(e.target.value)}
                     placeholder="Enter your account"
                   />
-                  {errors.account?.message! ? (
-                    <div
-                      style={{
-                        height: 20,
-                      }}
-                    >
-                      <small
-                        className={classNames({ "p-error": errors.account })}
-                      >
-                        {t(errors.account?.message!)}
-                      </small>
-                    </div>
-                  ) : (
-                    <div
-                      style={{
-                        height: 20,
-                      }}
-                    ></div>
-                  )}
+                  <FormMessageError error={errors.account?.message!} />
                 </div>
               </div>
             )}
@@ -99,38 +94,27 @@ export default function Home() {
             name="password"
             control={control}
             render={({ field, fieldState }) => (
-              <div>
+              <div
+                style={{
+                  width: 300,
+                }}
+              >
                 <div>
                   <InputText
+                    style={{
+                      width: "100%",
+                    }}
                     id={field.name}
                     className={classNames({ "p-invalid": fieldState.error })}
                     onChange={(e) => field.onChange(e.target.value)}
                     placeholder="Enter your password"
                   />
-                  {errors.account?.message! ? (
-                    <div
-                      style={{
-                        height: 20,
-                      }}
-                    >
-                      <small
-                        className={classNames({ "p-error": errors.account })}
-                      >
-                        {t(errors.account?.message!)}
-                      </small>
-                    </div>
-                  ) : (
-                    <div
-                      style={{
-                        height: 20,
-                      }}
-                    ></div>
-                  )}
+                  <FormMessageError error={errors.password?.message!} />
                 </div>
               </div>
             )}
           />
-          <div className="flex justify-content-center">
+          <div className="card flex justify-content-center">
             <Button
               icon="pi pi-check"
               className="block"

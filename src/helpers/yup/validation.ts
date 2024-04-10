@@ -5,10 +5,12 @@ const REGEX_ONLY_NUMBER = /^\d+$/;
 
 yup.setLocale({
   mixed: {
-    required: "${path} is a required fields",
+    required: "validator.required",
   },
   string: {
-    email: "validator.email",
+    email: "validator.stringEmail",
+    min: ({ min }: any) => ({ key: "validator.stringMin", values: { min } }),
+    max: ({ max }: any) => ({ key: "validator.stringMax", values: { max } }),
   },
 });
 
@@ -17,7 +19,7 @@ yup.addMethod(
   "isValidPassword",
   function isValidPassword(message?: string) {
     return this.matches(REGEX_PASSWORD, {
-      message: message ?? "Password is invalid",
+      message: message ?? "validator.password",
       excludeEmptyString: true,
     });
   }
