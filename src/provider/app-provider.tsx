@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 import "primereact/resources/primereact.css";
@@ -34,7 +34,11 @@ function AppProvider({ children }: { children: React.ReactNode }) {
     <I18nextProvider i18n={i18n}>
       <Provider store={store}>
         <PrimeReactProvider>
-          <React.StrictMode>{!isLoading && children}</React.StrictMode>
+          <React.StrictMode>
+            {!isLoading && (
+              <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
+            )}
+          </React.StrictMode>
         </PrimeReactProvider>
       </Provider>
     </I18nextProvider>

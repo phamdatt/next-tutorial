@@ -3,15 +3,15 @@ import { withSentryConfig } from "@sentry/nextjs";
 /** @type {import('next').NextConfig} */
 const isDev = process.env.NODE_ENV === "development";
 const nextConfig = {
-  async redirects() {
-    return [
-      {
-        source: "/about",
-        destination: "/post/1",
-        permanent: false,
-      },
-    ];
-  },
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: "/about",
+  //       destination: "/post/1",
+  //       permanent: false,
+  //     },
+  //   ];
+  // },
   async rewrites() {
     return [
       {

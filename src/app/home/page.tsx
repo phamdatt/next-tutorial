@@ -2,7 +2,6 @@
 import React, { useRef } from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
-import { Toast } from "primereact/toast";
 import { classNames } from "primereact/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
@@ -10,7 +9,6 @@ import { homeScheme } from "@/helpers/yup/validation";
 import i18nInstance, { I18N_CURRENT_LOCALE, I18N_LOCALE } from "@/helpers/i18n";
 import { useTranslation } from "react-i18next";
 import { saveData } from "@/helpers/local-storage/local-storage";
-
 export default function Home() {
   const toast: any = useRef(null);
   const { t } = useTranslation();
@@ -57,7 +55,6 @@ export default function Home() {
       <p>{t("post_page.title", { ns: "pages" })}</p>
       <Button onClick={handleChangeLanguage}>Change locale</Button>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Toast ref={toast} />
         <Controller
           name="account"
           control={control}
@@ -76,7 +73,6 @@ export default function Home() {
                 />
                 <p>{t(errors.account?.message!)}</p>
               </div>
-              <div></div>{" "}
             </div>
           )}
         />

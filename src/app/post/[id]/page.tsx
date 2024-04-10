@@ -3,12 +3,12 @@ export const metadata: Metadata = {
   title: "Post Detail",
 };
 export async function generateStaticParams() {
-  const posts = await fetch("http://localhost:8080/posts").then((res) =>
-    res.json()
-  );
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+    cache: "force-cache",
+  }).then((resp) => resp.json());
 
-  return posts.payload.map((post: any) => ({
-    id: post.post_id.toString(),
+  return response.map((post: any) => ({
+    id: post.id.toString(),
   }));
 }
 async function Post({ params }: any) {

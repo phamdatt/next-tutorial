@@ -5,7 +5,7 @@ export const metadata: Metadata = {
 };
 
 async function getPosts() {
-  const response = await fetch("http://localhost:8080/posts", {
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
     cache: "force-cache",
   }); //similar getStaticProps SSG
   // const response = await fetch("http://localhost:8080/posts", {
@@ -33,12 +33,12 @@ async function Post() {
   return (
     <>
       <h1>List of Posts</h1>
-      {posts.payload.map((post: any) => {
+      {posts.map((post: any) => {
         return (
-          <div key={post.post_id}>
-            <Link href={`post/${post.post_id}`}>
+          <div key={post.id}>
+            <Link href={`post/${post.id}`}>
               <h2>
-                {post.post_id} {post.title}
+                {post.id} {post.title}
               </h2>
             </Link>
             <hr />

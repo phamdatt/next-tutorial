@@ -43,7 +43,7 @@ const isValidI18nLocale = (localeTag: string) => {
 };
 
 i18nInstance.use(initReactI18next).init({
-  debug: true,
+  debug: false,
   resources: localeResources,
   lng: I18N_DEFAULT_LOCALE,
   fallbackLng: I18N_LOCALE.EN,

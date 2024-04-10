@@ -3,7 +3,7 @@ import type { Viewport } from "next";
 import AppProvider from "../provider/app-provider";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("http://192.168.0.41:3000/"),
+  // metadataBase: new URL("http://192.168.0.41:3000/"),
   title: "Loan Borrower Portal",
   description: "We dare you compare",
   keywords: ["Loan Borrower", "Loan Factory", "Borrower Portal"],
