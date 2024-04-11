@@ -11,6 +11,7 @@ import { I18nextProvider } from "react-i18next";
 import i18n from "@/helpers/i18n";
 import { getData } from "@/helpers/local-storage/local-storage";
 import i18nInstance from "@/helpers/i18n";
+
 persistStore(store);
 
 function AppProvider({ children }: { children: React.ReactNode }) {
@@ -31,11 +32,7 @@ function AppProvider({ children }: { children: React.ReactNode }) {
     <I18nextProvider i18n={i18n}>
       <Provider store={store}>
         <PrimeReactProvider>
-          <React.StrictMode>
-            {!isLoading && (
-              <Suspense fallback={<div>Loading...</div>}>{children}</Suspense>
-            )}
-          </React.StrictMode>
+          {!isLoading && <React.StrictMode>{children}</React.StrictMode>}
         </PrimeReactProvider>
       </Provider>
     </I18nextProvider>

@@ -5,9 +5,7 @@ export const metadata: Metadata = {
 };
 
 async function getPosts() {
-  const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
-    cache: "force-cache",
-  }); //similar getStaticProps SSG
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts"); //similar getStaticProps SSG
   // const response = await fetch("http://localhost:8080/posts", {
   //   cache: "no-store",
   // }); //-> similar getServerProps SSR
