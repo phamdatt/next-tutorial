@@ -42,19 +42,21 @@ const isValidI18nLocale = (localeTag: string) => {
   return true;
 };
 
-i18nInstance.use(initReactI18next).init({
-  debug: false,
-  resources: localeResources,
-  lng: I18N_DEFAULT_LOCALE,
-  fallbackLng: I18N_LOCALE.EN,
-  defaultNS: "common",
-  ns: ["common", "pages"],
-  keySeparator: ".",
-  interpolation: {
-    escapeValue: false,
-  },
-  returnNull: false,
-});
+i18nInstance
+  .use(initReactI18next)
+  .init({
+    debug: true,
+    resources: localeResources,
+    lng: I18N_DEFAULT_LOCALE,
+    fallbackLng: I18N_LOCALE.EN,
+    defaultNS: "common",
+    ns: ["common", "pages"],
+    keySeparator: ".",
+    interpolation: {
+      escapeValue: false,
+    },
+    returnNull: false,
+  });
 
 i18nInstance.on("languageChanged", async (locale: string) => {
   if (!isValidI18nLocale(locale)) {

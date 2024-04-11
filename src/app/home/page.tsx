@@ -11,9 +11,7 @@ import { useTranslation } from "react-i18next";
 import { saveData } from "@/helpers/local-storage/local-storage";
 import { Card } from "primereact/card";
 import FormMessageError from "@/components/form/form-message-error";
-import "primeicons/primeicons.css";
-import "primeflex/primeflex.css";
-import "primereact/resources/themes/lara-light-indigo/theme.css";
+
 export default function Home() {
   const toast: any = useRef(null);
   const { t } = useTranslation();
@@ -85,6 +83,7 @@ export default function Home() {
                     id={field.name}
                     className={classNames({ "p-invalid": fieldState.error })}
                     onChange={(e) => field.onChange(e.target.value)}
+                    placeholder="Enter your password"
                   />
                   <FormMessageError error={errors.account?.message!} />
                 </div>
@@ -108,6 +107,7 @@ export default function Home() {
                     id={field.name}
                     className={classNames({ "p-invalid": fieldState.error })}
                     onChange={(e) => field.onChange(e.target.value)}
+                    placeholder="Enter your password"
                   />
                   <FormMessageError error={errors.password?.message!} />
                 </div>

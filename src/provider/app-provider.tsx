@@ -1,7 +1,9 @@
 "use client";
 
-import React, { useEffect, useState, Suspense } from "react";
-
+import React, { useEffect, useState } from "react";
+import "primeicons/primeicons.css";
+import "primeflex/primeflex.css";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
 import { PrimeReactProvider } from "primereact/api";
 import { Provider } from "react-redux";
 import { store } from "@/store/store";
