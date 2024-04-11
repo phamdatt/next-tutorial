@@ -13,7 +13,6 @@
     "@hookform/resolvers": "^3.3.4",
     "@react-native-async-storage/async-storage": "^1.23.1",
     "@reduxjs/toolkit": "^2.2.3",
-    "@sentry/nextjs": "^7.105.0",
     "@testing-library/react": "^14.3.0",
     "i18next": "^23.11.0",
     "i18next-fs-backend": "^2.3.1",
