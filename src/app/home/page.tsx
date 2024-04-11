@@ -11,9 +11,6 @@ import { useTranslation } from "react-i18next";
 import { saveData } from "@/helpers/local-storage/local-storage";
 import { Card } from "primereact/card";
 import FormMessageError from "@/components/form/form-message-error";
-import "primeicons/primeicons.css";
-import "primeflex/primeflex.css";
-import "primereact/resources/themes/lara-light-indigo/theme.css";
 export default function Home() {
   const toast: any = useRef(null);
   const { t } = useTranslation();
