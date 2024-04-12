@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import type { Viewport } from "next";
 import AppProvider from "../provider/app-provider";
 import "./globals.css";
+import { getLocale } from "@/helpers/i18n/server";
+import { LocaleProvider } from "@/provider/locale-provider";
+
 export const metadata: Metadata = {
   // metadataBase: new URL("http://192.168.0.41:3000/"),
   title: "Loan Borrower Portal",
@@ -30,10 +33,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = getLocale();
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body>
-        <AppProvider>{children}</AppProvider>
+        <AppProvider>
+          <LocaleProvider value={locale}>{children}</LocaleProvider>
+        </AppProvider>
       </body>
     </html>
   );

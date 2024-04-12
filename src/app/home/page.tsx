@@ -6,15 +6,14 @@ import { classNames } from "primereact/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { homeScheme } from "@/helpers/yup/validation";
-import i18nInstance, { I18N_CURRENT_LOCALE, I18N_LOCALE } from "@/helpers/i18n";
-import { useTranslation } from "react-i18next";
-import { saveData } from "@/helpers/local-storage/local-storage";
+import { useTranslation } from "@/helpers/i18n/client";
 import { Card } from "primereact/card";
 import FormMessageError from "@/components/form/form-message-error";
+import { switchLocaleAction } from "@/app/actions";
 
 export default function Home() {
   const toast: any = useRef(null);
-  const { t } = useTranslation();
+  const { t } = useTranslation("pages");
   const {
     control,
     handleSubmit,
@@ -28,28 +27,9 @@ export default function Home() {
       password: "",
     },
   });
-  const show = () => {
-    toast?.current?.show({
-      severity: "success",
-      summary: "Form Submitted",
-      detail: "",
-    });
-  };
 
   const onSubmit = (data: any) => {
-    data.value && show();
-
     reset();
-  };
-
-  const handleChangeLanguage = async () => {
-    if (I18N_CURRENT_LOCALE === I18N_LOCALE.EN) {
-      await saveData("locale", I18N_LOCALE.VI);
-      i18nInstance.changeLanguage(I18N_LOCALE.VI);
-      return;
-    }
-    await saveData("locale", I18N_LOCALE.EN);
-    i18nInstance.changeLanguage(I18N_LOCALE.EN);
   };
 
   return (
@@ -58,7 +38,7 @@ export default function Home() {
       <div className="flex flex-wrap justify-content-between gap-2">
         <p className="text-xs">{t("home_page.title", { ns: "pages" })}</p>
         <Button
-          onClick={handleChangeLanguage}
+          onClick={switchLocaleAction}
           className="text-xs"
           label="Change Language"
         />

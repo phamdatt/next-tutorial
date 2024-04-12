@@ -37,4 +37,8 @@ const homeScheme = yup.object({
   password: yup.string().isValidPassword().min(6).max(255).required(),
 });
 
-export { homeScheme };
+const testScheme = yup.object({
+  email: yup.string().email().required(),
+});
+
+export { homeScheme, testScheme };
