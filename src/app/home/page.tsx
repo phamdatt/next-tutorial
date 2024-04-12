@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef } from "react";
+import React from "react";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { classNames } from "primereact/utils";
@@ -12,7 +12,6 @@ import FormMessageError from "@/components/form/form-message-error";
 import { switchLocaleAction } from "@/app/actions";
 
 export default function Home() {
-  const toast: any = useRef(null);
   const { t } = useTranslation("pages");
   const {
     control,
@@ -32,13 +31,16 @@ export default function Home() {
     reset();
   };
 
+  const handleChangeLanguage = () => {
+    switchLocaleAction();
+  };
+
   return (
     <div>
-      {/* <Loading /> */}
       <div className="flex flex-wrap justify-content-between gap-2">
-        <p className="text-xs">{t("home_page.title", { ns: "pages" })}</p>
+        <p className="text-xs">{t("home_page.title")}</p>
         <Button
-          onClick={switchLocaleAction}
+          onClick={handleChangeLanguage}
           className="text-xs"
           label="Change Language"
         />

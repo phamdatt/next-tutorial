@@ -37,9 +37,9 @@ export default function RootLayout({
   return (
     <html lang={locale}>
       <body>
-        <AppProvider>
-          <LocaleProvider value={locale}>{children}</LocaleProvider>
-        </AppProvider>
+        <LocaleProvider value={locale}>
+          <AppProvider>{children}</AppProvider>
+        </LocaleProvider>
       </body>
     </html>
   );

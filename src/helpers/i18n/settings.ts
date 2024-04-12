@@ -12,7 +12,6 @@ export const I18N_LOCALE = {
   EN: "en",
   VI: "vi",
 };
-export let I18N_CURRENT_LOCALE = "en";
 const I18N_DEFAULT_NAMEPSACE = "common";
 const localeResources = {
   [I18N_LOCALE.EN]: {
@@ -36,7 +35,6 @@ export type Locales = (typeof supportedLocales)[number];
 export const LANGUAGE_COOKIE = "preferred_language";
 
 export function getOptions(lang = FALLBACK_LOCALE, ns = "common"): InitOptions {
-  I18N_CURRENT_LOCALE = lang;
   return {
     // debug: true, // Set to true to see console logs
     resources: localeResources,
