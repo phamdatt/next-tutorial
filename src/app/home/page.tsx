@@ -43,7 +43,6 @@ export default function Home() {
   };
 
   const handleChangeLanguage = async () => {
-    console.log(I18N_CURRENT_LOCALE);
     if (I18N_CURRENT_LOCALE === I18N_LOCALE.EN) {
       await saveData("locale", I18N_LOCALE.VI);
       i18nInstance.changeLanguage(I18N_LOCALE.VI);

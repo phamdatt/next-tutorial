@@ -1,7 +1,6 @@
 "use client";
 import React, { useState, Suspense } from "react";
 import { useAppSelector } from "@/store/store";
-const BlogPage = React.lazy(() => import("../blog/page"));
 const AboutPage = () => {
   const authState = useAppSelector((state) => state.auth.authState);
   const [count, setCount] = useState(0);
@@ -21,7 +20,6 @@ const AboutPage = () => {
       {showPreview && (
         <Suspense fallback={<div>Loading...</div>}>
           <h2>Preview</h2>
-          <BlogPage />
         </Suspense>
       )}
     </div>

@@ -3,7 +3,9 @@ export const metadata: Metadata = {
   title: "Post Detail",
 };
 export async function generateStaticParams() {
-  const response = await fetch("https://jsonplaceholder.typicode.com/posts").then((resp) => resp.json());
+  const response = await fetch(
+    "https://jsonplaceholder.typicode.com/posts"
+  ).then((resp) => resp.json());
 
   return response.map((post: any) => ({
     id: post.id.toString(),
