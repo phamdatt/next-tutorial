@@ -6,13 +6,16 @@ import { classNames } from "primereact/utils";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { homeScheme } from "@/helpers/yup/validation";
-import { useTranslation } from "@/helpers/i18n/client";
+import { useTranslationCustom } from "@/hooks/useTranslateCustom";
 import { Card } from "primereact/card";
 import FormMessageError from "@/components/form/form-message-error";
 import { switchLocaleAction } from "@/app/actions";
-
+import i18nInstance, {
+  I18N_CURRENT_LOCALE,
+  I18N_LOCALE,
+} from "@/helpers/i18n/client";
 export default function Home() {
-  const { t } = useTranslation("pages");
+  const { t } = useTranslationCustom();
   const {
     control,
     handleSubmit,
@@ -33,6 +36,11 @@ export default function Home() {
 
   const handleChangeLanguage = () => {
     switchLocaleAction();
+    if (I18N_CURRENT_LOCALE === I18N_LOCALE.VI) {
+      i18nInstance.changeLanguage(I18N_LOCALE.EN);
+      return;
+    }
+    i18nInstance.changeLanguage(I18N_LOCALE.VI);
   };
 
   return (

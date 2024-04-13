@@ -1,68 +1,70 @@
-"use client";
+import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
+import commonEn from "../../../public/locales/en/common";
+import errorsEn from "../../../public/locales/vi/errors";
+import componentsEn from "../../../public/locales/vi/components";
+import pagesEn from "../../../public/locales/en/pages";
+import commonVi from "../../../public/locales/vi/common";
+import errorsVi from "../../../public/locales/vi/errors";
+import componentsVi from "../../../public/locales/vi/components";
+import pagesVi from "../../../public/locales/vi/pages";
+// It's important to create just only i18n instance
+const i18nInstance = i18n.createInstance();
+const I18N_LOCALE = {
+  EN: "en",
+  VI: "vi",
+};
 
-import { useEffect } from "react";
-import i18next, { i18n } from "i18next";
-import {
-  initReactI18next,
-  useTranslation as useTransAlias,
-} from "react-i18next";
-import resourcesToBackend from "i18next-resources-to-backend";
-import LanguageDetector from "i18next-browser-languagedetector";
-import {
-  Locales,
-  LANGUAGE_COOKIE,
-  getOptions,
-  supportedLocales,
-} from "./settings";
-import { useLocale } from "@/provider/locale-provider";
+export const supportedLocales = ["en", "vi"] as const;
+export type Locales = (typeof supportedLocales)[number];
 
-const runsOnServerSide = typeof window === "undefined";
+const I18N_DEFAULT_LOCALE = I18N_LOCALE.EN;
+const I18N_DEFAULT_NAMEPSACE = "common";
+let I18N_CURRENT_LOCALE = I18N_LOCALE.EN;
+export const LANGUAGE_COOKIE = "preferred_language";
 
-// Initialize i18next for the client side
-i18next
-  .use(initReactI18next)
-  .use(LanguageDetector)
-  .use(
-    resourcesToBackend(
-      (lang: string, ns: string) =>
-        import(`../../../public/locales/${lang}/${ns}.ts`)
-    )
-  )
-  .init({
-    ...getOptions(),
-    lng: undefined, // detect the language on the client
-    detection: {
-      // We only care about the cookie
-      order: ["cookie"],
-      // If `lookupCookie` is not set, it will use `i18next` as the cookie name
-      lookupCookie: LANGUAGE_COOKIE,
-      // This will automatically update the cookie
-      caches: ["cookie"],
-    },
-    preload: runsOnServerSide ? supportedLocales : [],
-  });
+const localeResources = {
+  [I18N_LOCALE.EN]: {
+    [I18N_DEFAULT_NAMEPSACE]: commonEn,
+    pages: pagesEn,
+    errors: errorsEn,
+    components: componentsEn,
+  },
+  [I18N_LOCALE.VI]: {
+    [I18N_DEFAULT_NAMEPSACE]: commonVi,
+    pages: pagesVi,
+    errors: errorsVi,
+    components: componentsVi,
+  },
+};
 
-export function useTranslation(ns = "common") {
-  const lng = useLocale();
-
-  const translator = useTransAlias(ns);
-  const { i18n } = translator;
-
-  // Run content is being rendered on server side
-  if (runsOnServerSide && lng && i18n.resolvedLanguage !== lng) {
-    i18n.changeLanguage(lng);
-  } else {
-    // Use our custom implementation when running on client side
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useCustomTranslationImplem(i18n, lng);
+const isValidI18nLocale = (localeTag: string) => {
+  if (typeof localeTag !== "string" || localeTag in localeResources === false) {
+    return false;
   }
-  return translator;
-}
+  return true;
+};
 
-function useCustomTranslationImplem(i18n: i18n, lng: Locales) {
-  // This effect changes the language of the application when the lng prop changes.
-  useEffect(() => {
-    if (!lng || i18n.resolvedLanguage === lng) return;
-    i18n.changeLanguage(lng);
-  }, [lng, i18n]);
-}
+i18nInstance.use(initReactI18next).init({
+  debug: false,
+  resources: localeResources,
+  lng: I18N_DEFAULT_LOCALE,
+  fallbackLng: I18N_LOCALE.EN,
+  defaultNS: "common",
+  ns: ["common", "pages"],
+  keySeparator: ".",
+  interpolation: {
+    escapeValue: false,
+  },
+  returnNull: false,
+});
+
+i18nInstance.on("languageChanged", async (locale: string) => {
+  if (!isValidI18nLocale(locale)) {
+    I18N_CURRENT_LOCALE = I18N_DEFAULT_LOCALE;
+  }
+  I18N_CURRENT_LOCALE = locale;
+});
+
+export { I18N_LOCALE, I18N_DEFAULT_LOCALE, I18N_CURRENT_LOCALE };
+export default i18nInstance;
