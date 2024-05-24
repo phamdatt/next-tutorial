@@ -1,15 +1,6 @@
 /** @type {import('next').NextConfig} */
 const isDev = process.env.NODE_ENV === "development";
 const nextConfig = {
-  async redirects() {
-    return [
-      {
-        source: "/.well-known/:file",
-        destination: "/api/.well-known/:file",
-        permanent: false,
-      },
-    ];
-  },
   async rewrites() {
     return [
       {
