@@ -20,6 +20,7 @@ async function getPosts() {
   if (!response.ok) {
     throw new Error("Failed to fetch data");
   }
+  await new Promise((resolve) => setTimeout(resolve, 2000)); //fake loading component
   return response.json();
 }
 
@@ -39,9 +40,9 @@ async function Post() {
         return (
           <div key={post.id}>
             <Link href={`post/${post.id}`}>
-              <h2>
+              <p>
                 {post.id} {post.title}
-              </h2>
+              </p>
             </Link>
             <hr />
           </div>
