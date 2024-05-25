@@ -1,6 +1,5 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { GET } from "../api/route";
 export const metadata: Metadata = {
   title: "Post",
 };
@@ -32,7 +31,6 @@ async function getPosts() {
 // }
 async function Post() {
   const posts = await getPosts();
-  await GET();
   return (
     <>
       <h1>List of Posts</h1>

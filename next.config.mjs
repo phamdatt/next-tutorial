@@ -1,6 +1,15 @@
 /** @type {import('next').NextConfig} */
 const isDev = process.env.NODE_ENV === "development";
 const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: "/.well-known/apple-app-site-association",
+        destination: "/api/.well-known",
+        permanent: false,
+      },
+    ];
+  },
   async rewrites() {
     return [
       {
