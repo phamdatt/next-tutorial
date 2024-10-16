@@ -8,16 +8,21 @@ const nextConfig = {
         destination: "/api/.well-known",
         permanent: false,
       },
-    ];
-  },
-  async rewrites() {
-    return [
       {
-        source: "/blog/1",
-        destination: "https://fado.vn/blog/nen-thom-la-gi.n67750/",
+        source: "/blog",
+        destination: "/home",
+        permanent: false,
       },
     ];
   },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/blog/1",
+  //       destination: "https://fado.vn/blog/nen-thom-la-gi.n67750/",
+  //     },
+  //   ];
+  // },
   logging: {
     fetches: {
       fullUrl: true,
